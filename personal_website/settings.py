@@ -16,6 +16,12 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+import environ
+
+env = environ.Env()
+
+environ.Env.read_env()
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
@@ -85,7 +91,7 @@ WSGI_APPLICATION = 'personal_website.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
-
+'''
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -96,6 +102,14 @@ DATABASES = {
         'PORT': '5432',                 
     
     }
+}
+
+'''
+#Render PostgreSQL
+import dj_database_url
+
+DATABASES = {
+    'default' : dj_database_url.parse(env('DATABASE_URL'))
 }
 
 
