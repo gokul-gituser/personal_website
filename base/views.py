@@ -7,12 +7,49 @@ from django.urls import reverse
 from urllib.parse import urlencode 
 import os
 
+skills = ["Python", "Django", "Pytorch", "scikit-learn",'Numpy','Pandas', "SQL",'PostgreSQL','MySQL',"Matplotlib","Power BI","Git","Data Analysis","Mathematics and Statistics","Machine Learning","Deep Learning","Computer Vision","Natural Language Processing"]
+
+   # projects = Project.objects.all()
+projects = [
+        {
+            'id': 1,
+            'title': 'Flight Price Prediction',
+            'description': 'This project focuses on predicting flight ticket prices using historical flight data. By leveraging various categorical and continuous variables, I developed a regression model to estimate prices accurately.The project enhanced my proficiency in Python and scikit-learn, allowing me to deepen my understanding of data preprocessing techniques.This experience reinforced my ability to translate complex datasets into actionable insights, further solidifying my foundation in data science and machine learning.This project sharpened my problem-solving skills and I learned how to visualize data effectively with Matplotlib.Overall, this project has been instrumental in enhancing my technical expertise and preparing me for future challenges in the field of data science.',
+            'link': 'https://colab.research.google.com/drive/1gB0VDBL0r4eI5CSF82gRGuiVa8_uz8Pq?usp=sharing',
+            'technologies': 'Python, Scikit-learn, Matplotlib'
+        },
+        {
+            'id': 2,
+            'title': 'Computer Vision Model for Food Image Classification',
+            'description': 'With a focus on building a robust food classification model, this project applied computer vision and deep learning techniques to accurately identify and categorize diverse food items. By leveraging convolutional neural networks (CNNs) and transfer learning, I developed a model that significantly optimized performance and accuracy. Creating a custom dataset for this specific task also strengthened my skills in data handling and preprocessing with Python. Additionally, using PyTorch allowed me to refine the model and deepen my expertise in neural network implementation. This experience reinforced my foundation in both computer vision and machine learning.',
+            'link': 'https://colab.research.google.com/drive/1N3EspASNsQaPkyFlkCKBlrqXzhiaHkGY?usp=sharing',
+            'technologies': 'Python, Pytorch, Matplotlib'
+        },
+        {
+            'id': 3,
+            'title': 'Chatbot',
+            'description': 'This chatbot, developed using Python,FastAPI and Google’s Dialogflow, utilizes advanced natural language processing capabilities to assist users in finding and purchasing products from a virtual store. The integration of Dialogflow enables the chatbot to understand and respond to user queries effectively, handling product inquiries and providing recommendations. Additionally, it helps users add items to their carts, displays the cart contents, and guides them through a simulated purchase process, enhancing the overall shopping experience with seamless interaction and support.',
+            'link': 'https://github.com/gokul-gituser/sales-chatbot.git',
+            'technologies': 'Python, FastAPI, Google’s Dialogflow, MySQL'
+        },
+        
+        {
+            'id': 4,
+            'title': 'Personal Portfolio Website',
+            'description': 'This Django portfolio website showcases my skills and projects. Built with Django, it features a user-friendly interface that highlights my expertise in Python, Django, PyTorch, and machine learning. Each project includes a detailed description of the technologies used and challenges faced, providing insight into my practical experience.The site has a clean, responsive design, making it easy for visitors to navigate and access information about my work and achievements. Overall, this portfolio reflects my technical capabilities and passion for continuous learning in software development and data science.',
+            'link': 'https://github.com/gokul-gituser/personal_website.git',
+            'technologies': 'Python, Django, PostgreSQL, HTML, CSS, Bootstrap'
+        },
+        
+    ]
+
 # Create your views here.
 def index(request):
     personal_details = PersonalDetails.objects.first()
     education_details = Education.objects.all()
-    skills = Skill.objects.all()
-    projects = Project.objects.all()
+  #  skills = Skill.objects.all()
+    
+
 
     form = ContactForm()
     submitted =  request.GET.get('submitted', False)
@@ -39,7 +76,7 @@ def index(request):
     return render(request, 'base/index.html', context)
 
 
-
+'''
 def project_detail(request, project_id):
     
     try:
@@ -53,20 +90,19 @@ def project_detail(request, project_id):
         
     }
     return render(request, 'base/project_detail.html', context) 
-
-
-def download_resume(request):
+'''
+def project_detail(request, project_id):
     
-    file_path = os.path.join(settings.MEDIA_ROOT, 'resume', 'Gokul-Jayan-J-B-resume.pdf')
+    project = next((proj for proj in projects if proj['id'] == project_id), None)
     
-   
-    if os.path.exists(file_path):
-        with open(file_path, 'rb') as pdf:
-            response = HttpResponse(pdf.read(), content_type='application/pdf')
-            response['Content-Disposition'] = 'attachment; filename="Gokul-Jayan-J-B-resume.pdf"'
-            return response
-    else:
-        return HttpResponse("File not found.")
+    if project is None:
+        raise Http404("Project not found")  
+    
+    context = {
+        'project': project,
+    }
+    
+    return render(request, 'base/project_detail.html', context)
 
 
 def contact_view(request):
@@ -76,12 +112,15 @@ def contact_view(request):
         form = ContactForm(request.POST)
         if form.is_valid():
             form.save()
-            # Set the flag to show the thank you modal after submission
+            
             show_thank_you_modal = True
     else:
         form = ContactForm()
 
-    return render(request, 'contact.html', {
+    return render(request, 'base/index.html', {
         'form': form,
         'show_thank_you_modal': show_thank_you_modal,
     })
+
+
+

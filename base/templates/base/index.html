@@ -4,30 +4,27 @@
 <div class="container">
    
 
-    <!-- About Section -->
+    
     <div id="about" class="mb-5">
         <div class="card bg-body-secondary text-dark d-flex flex-column border-0">
             <div class="card-body d-flex flex-column justify-content-between">
                 <div class="row">
-                    <div class="col-md-10">
-                        <h1 id="main-heading" class="display-1">{{ personal_details.name }}</h1>
+                <!--   <div class="col-md-10"> --> 
+                        <h1 id="main-heading" class="display-1">Gokul Jayan J B</h1>
                         <hr>
-                        <p id="objective" class="mt-auto">{{ personal_details.career_objective }}</p>
-                    </div>
-                    
+                        <p id="objective" class="lead mt-auto">As an aspiring Data Scientist with a passion for mathematics and a strong commitment to personal growth, I aim to utilize my expertise in AI and machine learning to develop innovative solutions.My adaptability and eagerness to learn new technologies drive me to stay current in the fast-paced landscape of data science. 
+                            I seek opportunities to collaborate with like-minded professionals and contribute to projects that push the boundaries of innovation.</p>
+                <!--     </div> -->
+                    <!--
                     <div class="col-md-2 d-flex align-items-center align-items-md-start justify-content-center d-none d-md-flex">
                         <img src="{{ personal_details.picture.url }}" alt="{{ personal_details.name }}" class="img-fluid rounded responsive-img" >
                     </div>
+                -->
                 </div>
             </div>
         </div>
     </div>
-    <div class="d-flex justify-content-center align-items-center mb-5">
-        <a href="{% url 'base:download_resume' %}" class="btn btn-primary" download>
-            Download Resume
-        </a>
-        
-    </div>
+   
     
     
     
@@ -69,9 +66,10 @@
         <h2 class="display-4">Skills</h2>
         <hr>
         <div class="card-body row justify-content-center">
+            
             {% for skill in skills %}
                 <div class="col-md-3 col-sm-6 mb-3">
-                    <span class=" fs-5 p-3"><i class="fa-solid fa-bullseye"></i> {{ skill.skill_name }}</span>
+                    <span class=" fs-5 p-3"><i class="fa-solid fa-bullseye"></i> {{ skill }}</span>
                 </div>
             {% empty %}
                 <p>No skills listed.</p>
@@ -105,35 +103,35 @@
         </div>
     </div> -->
     <div id="projects" class="card bg-body-secondary mb-5 border-0">
-        <h2 class="display-4"> Projects</h2>
+        <h2 class="display-4">Projects</h2>
         <hr>
         <div class="card-body row">
             {% for project in projects %}
                 <div class="col-md-4 mb-4">
                     <div class="card h-100 card-hover">
-                        <a href="{% url 'base:project_detail' project.id %}">
-                            <img id="thumbnail" src="{{ project.thumbnail.url }}" class="card-img-top" alt="{{ project.project_name }} thumbnail">
-                        </a>
+                        <a href="{% url 'base:project_detail' project.id %}" class="text-decoration-none text-dark"> 
                             <div class="card-body text-center">
-                                <a href="{% url 'base:project_detail' project.id %}" class="card-title">{{ project.project_name }}</a>
-                            
+                                <h5 class="card-title">{{ project.title }}</h5>
+                                <p>{{ project.technologies }}</p>
                             </div>
-                        
+                        </a>
                     </div>
                 </div>
             {% empty %}
                 <p>No projects available.</p>
             {% endfor %}
         </div>
+        
     </div>
-
+    
+<!--
     <div class="d-flex justify-content-center align-items-center">
        
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#contactModal">
             Contact Me
         </button>
     </div>
-
+-->
     
     
     
@@ -141,9 +139,9 @@
 <footer class="card bg-body-secondary text-dark border-0 p-4 mt-5 w-100">
     <div class="row d-flex justify-content-center align-items-center text-center">
         <div class="col-md-4 mb-3">
-            <p>Email: {{ personal_details.email }}</p>
-            <p>Phone: {{ personal_details.phone_number }}</p>
-            <p>Location: {{ personal_details.location }}</p>
+            <div>Email: gokul1999jayan@gmail.com</div>
+            <div>Phone: 7356224605</div>
+            <div>Location: Trivandrum</div>
         </div>
     </div>
     <div class="text-center mt-4">
@@ -198,17 +196,17 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
-<!-- Trigger Thank You Modal after form submission -->
+
 {% if submitted %}
 <script>
     document.addEventListener("DOMContentLoaded", function () {
 
         
-        // Show the thank you modal
+       
         var thankYouModal = new bootstrap.Modal(document.getElementById('thankYouModal'));
         thankYouModal.show();
 
-        // Once the modal is shown, remove 'submitted=True' from the URL
+       
         thankYouModal._element.addEventListener('shown.bs.modal', function () {
             const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
             window.history.replaceState({}, document.title, newUrl);
@@ -225,23 +223,23 @@
 
 {% block custom_script %}
 <script> 
-    // Ensure this script runs only on the home page
+  
     document.addEventListener('DOMContentLoaded', function() {
         const navbarBrand = document.getElementById('nav-name');
        const pageTitle = document.getElementById('main-heading');
 
-        // Initial hide of the navbar brand
+      
         navbarBrand.style.visibility = 'hidden';
 
-        // Function to check scroll position
+       
        window.addEventListener('scroll', function() {
            const pageTitleBottom = pageTitle.getBoundingClientRect().bottom;
 
             if (pageTitleBottom <= 0) {
-                // User has scrolled past the h1, show the navbar brand
+                
                 navbarBrand.style.visibility = 'visible';
             } else {
-                // User is looking at the h1, hide the navbar brand
+                
                 navbarBrand.style.visibility = 'hidden';
             }
         });
