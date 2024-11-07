@@ -7,7 +7,7 @@ from django.urls import reverse
 from urllib.parse import urlencode 
 import os
 
-skills = ["Python", "Django", "Pytorch", "scikit-learn",'Numpy','Pandas', "SQL",'PostgreSQL','MySQL',"Matplotlib","Power BI","Git","Data Analysis","Mathematics and Statistics","Machine Learning","Deep Learning","Computer Vision","Natural Language Processing"]
+skills = ["Python", "Django", "Pytorch", "scikit-learn",'Numpy','Pandas', "SQL",'PostgreSQL','MySQL',"Data Structures and Algorithms","Matplotlib","Power BI","Git","Data Analysis","Data Mining","Mathematics and Statistics","Artificial Intelligence","Machine Learning","Deep Learning","Computer Vision","Natural Language Processing", 'Agile', 'Jira', ]
 
    # projects = Project.objects.all()
 projects = [
@@ -39,6 +39,13 @@ projects = [
             'description': 'This Django portfolio website showcases my skills and projects. Built with Django, it features a user-friendly interface that highlights my expertise in Python, Django, PyTorch, and machine learning. Each project includes a detailed description of the technologies used and challenges faced, providing insight into my practical experience.The site has a clean, responsive design, making it easy for visitors to navigate and access information about my work and achievements. Overall, this portfolio reflects my technical capabilities and passion for continuous learning in software development and data science.',
             'link': 'https://github.com/gokul-gituser/personal_website.git',
             'technologies': 'Python, Django, PostgreSQL, HTML, CSS, Bootstrap'
+        },
+        {
+            'id': 5,
+            'title': 'Power BI Project',
+            'description': 'Developed an interactive Power BI dashboard to analyze key metrics and trends for the 2024 Olympics dataset.Used Power Query for data import and transformation and DAX for custom measures to analyze athlete statistics and medal distribution. Leveraged a variety of visuals to present trends in participation and performance across countries and sports and applied slicers to enable dynamic exploration.This project demonstrated expertise in Power BI’s analytical and visualization tools for actionable data insights.',
+            'link': 'https://drive.google.com/drive/folders/1R-6QGLk2wsymws2oOPiARCFrpuWdPsHO?usp=sharing',
+            'technologies': 'Power BI, DAX, Power Query'
         },
         
     ]
